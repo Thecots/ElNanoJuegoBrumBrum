@@ -10,7 +10,7 @@ canvas.height = 700
 
 /* settings */
 let game = true
-const setDebugger = true
+const setDebugger = false
 const roadSrc = document.querySelector('#road')
 const road = [
   new Road(roadSrc, canvas.width, canvas.height, 0, -canvas.height),
