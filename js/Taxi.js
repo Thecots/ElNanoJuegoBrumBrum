@@ -11,7 +11,9 @@ export default class Taxi{
   }
 
   draw(setDebugger,ctx,e){
-    this.y -= this.speed - e.speed
+    if(this.x == 220 || this.x == 350){
+      this.y += this.speed + e.speed
+    }else{ this.y -= this.speed - e.speed }
     ctx.drawImage(this.img,this.x,this.y,this.width,this.height);
     if(setDebugger) this.debugger(ctx)
 

@@ -19,19 +19,22 @@ const road = [
 ]
 
 const maxVelocity = 25
-const velocityPower = 0.2
+const velocityPower = 0.5
 const breakPower = 0.5
 const slowDown = 0.2
 const directionSpeed = 5
 const hitbox = 15
-const f1With = 40
+const f1With = 55
 const f1Height = 120
 const f1Src = document.querySelector('#f1')
 let f1Controller = {speed: 0, active: false, break: false, right: false, lef: false}
 const f1 = new F1(f1Src, f1With, f1Height, (canvas.width/2-f1With/2), canvas.height-f1Height-20,maxVelocity, velocityPower, slowDown,breakPower,directionSpeed , canvas.width, canvas.height, hitbox)
 
 const taxiSrc = document.querySelector('#taxi')
-const taxiPositionsX = [220,350,495,630]
+const taxirSrc = document.querySelector('#taxir')
+
+const taxiPositionsYP = [220,350]
+const taxiPositionsYN = [495,630]
 const taxis = []
 const taxiSpeed = 4
 const taxiWith = 55
@@ -83,10 +86,11 @@ function drawRoad(){
 }
 
 function newTaxi(){
-  taxis.push(new Taxi(taxiSrc,taxiWith,taxiHeight,taxiPositionsX[Math.round(Math.random()*(taxiPositionsX.length-1))],-taxiHeight,taxiSpeed, canvas.height,Taxihitbox))
+  taxis.push(new Taxi(taxiSrc,taxiWith,taxiHeight,taxiPositionsYN[Math.round(Math.random()*(taxiPositionsYN.length-1))],-taxiHeight,taxiSpeed, canvas.height,Taxihitbox))
+  taxis.push(new Taxi(taxirSrc,taxiWith,taxiHeight,taxiPositionsYP[Math.round(Math.random()*(taxiPositionsYN.length-1))],-taxiHeight,taxiSpeed, canvas.height,Taxihitbox))
 }
 
-setInterval(newTaxi,200)
+setInterval(newTaxi,1000)
 
 function crashdDetect(){
   taxis.forEach(n => {
