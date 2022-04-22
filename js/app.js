@@ -28,14 +28,14 @@ const f1With = 55
 const f1Height = 120
 const f1Src = document.querySelector('#f1')
 let f1Controller = {speed: 0, active: false, break: false, right: false, lef: false}
-const f1 = new F1(f1Src, f1With, f1Height, (canvas.width/2-f1With/2), canvas.height-f1Height-20,maxVelocity, velocityPower, slowDown,breakPower,directionSpeed , canvas.width, canvas.height, hitbox)
+let f1;
 
 const taxiSrc = document.querySelector('#taxi')
 const taxirSrc = document.querySelector('#taxir')
 
 const taxiPositionsYP = [220,350]
 const taxiPositionsYN = [495,630]
-const taxis = []
+let taxis = []
 const taxiSpeed = 4
 const taxiWith = 55
 const taxiHeight = 120
@@ -103,20 +103,35 @@ function crashdDetect(){
       f.bottom > n.top && f.bottom < n.bottom && f.right > n.left && f.right < n.right
     ){
       game = false
+      Swal.fire({
+        icon: 'error',
+        title: 'Que haces?',
+        text: 'Acabas de matar al Nano animal',
+      }).then(() => {
+        init()
+      })
     }
   })
   return false
 }
 
-function init(){
+function loop(){
   crashdDetect()
   if(game){
-    requestAnimationFrame(init)
+    requestAnimationFrame(loop)
   }
   ctx.clearRect(0,0,canvas.width, canvas.height)
   drawRoad()
   drawTaxis()
   f1.draw(setDebugger,ctx,f1Controller)
+}
+
+function init(){
+  game = true
+  f1Controller.speed = 0
+  f1 = new F1(f1Src, f1With, f1Height, (canvas.width/2-f1With/2), canvas.height-f1Height-20,maxVelocity, velocityPower, slowDown,breakPower,directionSpeed , canvas.width, canvas.height, hitbox)
+  taxis = []
+  loop()
 }
 
 init()
